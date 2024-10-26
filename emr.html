@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,7 +35,8 @@
             border-bottom: 1px solid #2d7abf;
         }
 
-        .header-left, .header-right {
+        .header-left,
+        .header-right {
             display: flex;
             gap: 4px;
         }
@@ -237,8 +239,56 @@
             grid-template-columns: 1fr auto;
             gap: 8px;
         }
+
+        /* Hl7 Tool Section */
+        .hl7-tool-section {
+            background: white;
+            border: 1px solid var(--epic-border);
+            margin-bottom: 8px;
+        }
+
+        .hl7-tool-section .section-header {
+            background: #e8f5e9;
+            padding: 4px 8px;
+            font-weight: 500;
+            border-bottom: 1px solid var(--epic-border);
+            display: flex;
+            align-items: center;
+        }
+
+        .hl7-tool-section .section-header i {
+            margin-right: 4px;
+            color: #43a047;
+        }
+
+        .tool-access {
+            padding: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tool-button {
+            margin-top: 8px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .tool-link {
+            background-color: #2980b9;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .tool-link:hover {
+            background-color: #3498db;
+        }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <header class="epic-header">
@@ -383,8 +433,26 @@
                         </div>
                     </div>
                 </div>
+                <div class="hl7-tool-section">
+                    <div class="section-header">
+                        <i class="fas fa-file-medical"></i>
+                        HL7 Message Reader
+                    </div>
+                    <div class="team-member">
+                        <div>
+                            <strong>HL7 Parser Tool</strong><br>
+                            <small>Convert HL7 messages into human-readable format</small>
+                        </div>
+                        <div class="tool-button">
+                            <a href="hl7reader.html" class="tool-link">
+                                <i class="fas fa-external-link-alt"></i> Open Tool
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </body>
+
 </html>
