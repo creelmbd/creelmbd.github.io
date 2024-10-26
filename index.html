@@ -1,139 +1,449 @@
-<!DOCTYPE HTML>
-<!--
-	Photon by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Brian Creelman</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brian Creelman - DevOps Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body class="landing-page">
+    <div class="landing-container">
+        <!-- Header Section -->
+        <header class="landing-header">
+            <nav class="top-nav">
+                <a href="#" class="nav-logo">BC</a>
+                <div class="nav-links">
+                    <a href="https://www.linkedin.com/in/brian-creelman-37813966/" target="_blank">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://github.com/creelmbd" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </nav>
+        </header>
 
-		<!-- Header -->
-			<section id="header">
-				<div class="inner">
-					<span class="icon solid major fa-user-secret"></span>
-					<h1>Brian Creelman</h1>
-					<p>A showcase of my professional and personal projects, abilities and contact information.</p>
-					<br>
-					<ul class="icons">
-						<li><a href="https://www.linkedin.com/in/brian-creelman-37813966/" class="icon brands alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
-						<li><a href="https://github.com/creelmbd" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-						<li><a href="mailto:creelmbd@gmail.com" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
-					</ul>
-					<ul class="actions special">
-						<li><a href="#one" class="button scrolly">Discover</a></li>
-					</ul>
-				</div>
-			</section>
+        <!-- Main Content -->
+        <main class="landing-content">
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h1 class="animate-fade-in">Brian Creelman</h1>
+                    <p class="subtitle animate-fade-in">Senior DevOps Engineer</p>
+                    <div class="tech-stack animate-fade-in">
+                        <img src="assets/images/aws.svg" alt="AWS" class="tech-icon" title="Amazon Web Services">
+                        <img src="assets/images/docker-icon.svg" alt="Docker" class="tech-icon" title="Docker">
+                        <img src="assets/images/kubernetes.svg" alt="Kubernetes" class="tech-icon" title="Kubernetes">
+                        <img src="assets/images/terraform-icon.svg" alt="Terraform" class="tech-icon" title="Terraform">
+                        <img src="assets/images/python.svg" alt="Python" class="tech-icon" title="Python">
+                        <img src="assets/images/javascript.svg" alt="JavaScript" class="tech-icon" title="JavaScript">
+                    </div>
+                </div>
+            </div>
 
-		<!-- One -->
-			<section id="one" class="main style1">
-				<div class="container">
-					<div class="row gtr-150">
-						<div class="col-6 col-12-medium">
-							<header class="major">
-							<h2><center>Check out my LinkedIn Profile and Connect with me!</center></h2>
-							</header>
-							<p>Take a look at my work history, certifications and roles at my previous employers.  I have learned so much at each one and have gained a vast skillset that allows me to have knowledge of how I can go about solving complicated issues or help with researching new features.</p>
-							<br>
-							<p>I follow local and national Health Systems (many I had worked on integrations with), Healthcare Technology Vendors, Information Security, and all things Tech related.  I am always interested in learning about new technologies and advancements especially if there is a lab that I can work through within my homelab environment.</p>
-							<br>
-							<p>When I am not working I am usually tinkering around with my homelabs and AWS instances while studying for other certifications, working on projects of my own or just out of general curiosty to learn something new.</p>
-						</div>
-						<div class="col-6 col-12-medium imp-medium">
-							<span class="image fit"><img src="images/LinkedIN.jpg" alt="" /></span>
-						</div>
-					</div>
-				</div>
-			</section>
-			
-		<!-- Two -->
-			<section id="three" class="main style1 special">
-				<div class="container">
-					<header class="major">
-						<h2>Project Showcase</h2>
-					</header>
-					<p>Most of my projects come out of real world use cases for previous jobs so a lot of the content has been redacted.</p>
-					<div class="row gtr-150">
-						<div class="col-4 col-12-medium">
-							<span class="image fit"><img src="images/PS.png"/></span>
-							<h3>BlastExtend</h3>
-							<p>This project was born out of being able to reach out to a large group of users that were on old versions of an app and being able to export user lists from our APM to a .csv file.  Previously the Customer Care Team was messaging each user individually.</p>
-							<ul class="actions special">
-								<li><a href="https://github.com/creelmbd/BlastExtend" class="button">More</a></li>
-							</ul>
-						</div>
-						<div class="col-4 col-12-medium">
-							<span class="image fit"><img src="images/Python.png"/></span>
-							<h3>Dupes</h3>
-							<p>During implementation processes we were running into the issue of users having accounts associated to other healthcare systems.  This posed an issue as users could possibly miss messages so this allowed me to find the duplicates ahead of time so the Project Teams could make the decisions ahead of Go-Lives.</p>
-							<ul class="actions special">
-								<li><a href="https://github.com/creelmbd/Dupes" class="button">More</a></li>
-							</ul>
-						</div>
-						<div class="col-4 col-12-medium">
-							<span class="image fit"><img src="images/VS.png"/></span>
-							<h3>ADParser</h3>
-							<p>Another application built out of the AD synch process this allows to convert the AD file from JSON format to a readable CSV.  This allowed us to easily find issues with user or shared accounts that caused issues with the creation of new users when they may have had a special character that would cause our program to escape from running.</p>
-							<ul class="actions special">
-								<li><a href="https://github.com/creelmbd/ADParser" class="button">More</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</section>
-			
-		<!-- Three -->
-			<section id="two" class="main style2">
-				<div class="container">
-					<div class="row gtr-150">
-						<div class="col-6 col-12-medium">
-							<ul class="major-icons">
-								<li><span class="icon solid style1 major fa-laptop-code"></span></li>
-								<li><span class="icon solid style2 major fa-desktop"></span></li>
-								<li><span class="icon solid style4 major fa-cogs"></span></li>
-								<li><span class="icon solid style5 major fa-mobile-alt"></span></li>
-								<li><span class="icon solid style6 major fa-bowling-ball"></span></li>
-								<li><span class="icon solid style6 major fa-tachometer-alt"></span></li>
-							</ul>
-						</div>
-						<div class="col-6 col-12-medium">
-							<header class="major">
-								<h2>My Interests/Bio</h2>
-							</header>
-							<p>Originally majoring in Mechanical Engineering the recession soon hit the USA and the struggles for many were finding co-ops at that time.  When co-ops were not highering we were placed back into classes and during that time I had built my first computer which reinvigorated my love of computers since I was a kid and made the decision to move into Information Technology.  While in school I held full time jobs where I would be learning more than what was being taught in school.  I am self taught in a lot of the skills that I have learned over the years wether they be for Vendor certifications or just general curiosity I've always had the drive to learn all that I can.</p>
-							<p>Many of my hobbies revolve around the use of technology.  I build and race cars in autocross, rallycross and drag racing.  Growing up I was involved in most every sport that a person could play but these days you will find me at the golf course, inline hockey rink or the bowling alley.  I have dedicated servers in my home that I use for different labs, Virtual Machines, network hosts and docker containers.</p>
-							<p>Thank you for taking the time to look at my profile.  I hope to hear from you soon!  I can be reached at either my email or LinkedIn which are at the top and bottom of this site.</p>
-						</div>
-					</div>
-				</div>
-			</section>
-			
-		<!-- Footer -->
-			<section id="footer">
-				<ul class="icons">
-						<li><a href="https://www.linkedin.com/in/brian-creelman-37813966/" class="icon brands alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
-						<li><a href="https://github.com/creelmbd" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-						<li><a href="mailto:creelmbd@gmail.com" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
-				</ul>
-				<ul class="copyright">
-					<li>&copy; Brian Creelman</li><li>Design by: <a href="http://html5up.net">HTML5 UP</a></li>
-				</ul>
-			</section>
+            <div class="experience-selection animate-fade-in">
+                <h2>Choose Your Experience</h2>
+                <p class="selection-description">Select your preferred way to explore my portfolio</p>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+                <div class="experience-cards">
+                    <!-- Healthcare Systems Card -->
+                    <a href="emr.html" class="experience-card health-systems">
+                        <div class="card-content">
+                            <div class="card-icon">
+                                <img src="/api/placeholder/64/64" alt="Healthcare Systems Interface">
+                            </div>
+                            <h3>Healthcare Systems View</h3>
+                            <p>Experience my work through an EMR-inspired interface</p>
+                            <div class="card-features">
+                                <span class="feature-tag"><i class="fas fa-chart-line"></i> Real-time Metrics</span>
+                                <span class="feature-tag"><i class="fas fa-database"></i> System Status</span>
+                                <span class="feature-tag"><i class="fas fa-server"></i> Infrastructure</span>
+                            </div>
+                            <div class="card-cta">
+                                <span class="btn-text">Launch Interface</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                        <div class="card-background">
+                            <img src="/api/placeholder/400/300" alt="EMR Interface Preview" class="card-preview">
+                        </div>
+                    </a>
 
-	</body>
-</html>
+                    <!-- Terminal View Card -->
+                    <a href="tech.html" class="experience-card terminal">
+                        <div class="card-content">
+                            <div class="card-icon">
+                                <img src="/api/placeholder/64/64" alt="Terminal Interface">
+                            </div>
+                            <h3>DevOps Terminal</h3>
+                            <p>Access my portfolio through a developer console</p>
+                            <div class="card-features">
+                                <span class="feature-tag"><i class="fas fa-code"></i> CLI Experience</span>
+                                <span class="feature-tag"><i class="fas fa-terminal"></i> Interactive Shell</span>
+                                <span class="feature-tag"><i class="fas fa-project-diagram"></i> Tech Details</span>
+                            </div>
+                            <div class="card-cta">
+                                <span class="btn-text">Open Terminal</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                        <div class="card-background">
+                            <img src="/api/placeholder/400/300" alt="Terminal Interface Preview" class="card-preview">
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <!-- Background Elements -->
+        <div class="background-elements">
+            <div class="floating-icon aws">
+                <img src="assets/images/aws.svg" alt="AWS" class="tech-icon-bg">
+            </div>
+            <div class="floating-icon docker">
+                <img src="assets/images/docker-icon.svg" alt="Docker" class="tech-icon-bg">
+            </div>
+            <div class="floating-icon terraform">
+                <img src="assets/images/terraform-icon.svg" alt="Terraform" class="tech-icon-bg">
+            </div>
+            <div class="floating-icon python">
+                <img src="assets/images/python.svg" alt="Python" class="tech-icon-bg">
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="landing-footer">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p>© 2024 Brian Creelman</p>
+                    <div class="footer-stats">
+                        <span class="stat-item">
+                            <i class="fas fa-code-branch"></i>
+                            8+ Years Experience
+                        </span>
+                        <span class="stat-item">
+                            <i class="fas fa-project-diagram"></i>
+                            100+ Projects Delivered
+                        </span>
+                        <span class="stat-item">
+                            <i class="fas fa-certificate"></i>
+                            AWS Certified
+                        </span>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <a href="mailto:contact@example.com" class="footer-link">
+                        <i class="fas fa-envelope"></i>
+                        Contact
+                    </a>
+                    <a href="/resume.pdf" class="footer-link">
+                        <i class="fas fa-file-alt"></i>
+                        Resume
+                    </a>
+                    <a href="https://www.linkedin.com/in/brian-creelman-37813966/" class="footer-link" target="_blank">
+                        <i class="fab fa-linkedin"></i>
+                        LinkedIn
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Additional styles for this page -->
+    <style>
+        .landing-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .landing-header {
+            padding: 1.5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            font-size: 1.25rem;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #fff, #88ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #88ccff;
+            margin-bottom: 2rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .tech-icon {
+            width: 48px;
+            height: 48px;
+            filter: brightness(0) invert(1);
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .tech-icon:hover {
+            opacity: 1;
+            transform: translateY(-5px);
+        }
+
+        .experience-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .experience-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            text-decoration: none;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .experience-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-icon {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .feature-tag {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-cta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+            font-weight: 500;
+        }
+
+        .card-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.1;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .card-preview {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .background-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .floating-icon {
+            position: absolute;
+            opacity: 0.1;
+        }
+
+        .tech-icon-bg {
+            width: 128px;
+            height: 128px;
+            filter: brightness(0) invert(1);
+        }
+
+        .aws { top: 10%; left: 10%; animation: float 20s infinite; }
+        .docker { top: 30%; right: 15%; animation: float 25s infinite; }
+        .terraform { bottom: 20%; left: 20%; animation: float 22s infinite; }
+        .python { bottom: 30%; right: 25%; animation: float 28s infinite; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(20px, 20px) rotate(180deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+
+        .landing-footer {
+            margin-top: auto;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0.8;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-link:hover {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .tech-stack {
+                gap: 1rem;
+            }
+
+            .tech-icon {
+                width: 36px;
+                height: 36px;
+            }
+
+            .experience-cards {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+
+    <!-- Animations -->
+    <style>
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-content > * {
+            animation-delay: var(--delay, 0s);
+        }
+

@@ -1,0 +1,88 @@
+/* Results (Achievements/Certifications) Component Styles */
+.results-container {
+  padding: var(--space-lg);
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-lg);
+}
+
+.result-card {
+  background: var(--surface-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.result-header {
+  background: var(--surface-tertiary);
+  padding: var(--space-md);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.result-type {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.result-title {
+  color: var(--text-primary);
+  margin-top: var(--space-xs);
+}
+
+.result-body {
+  padding: var(--space-md);
+}
+
+.result-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.stat-box {
+  background: var(--surface-secondary);
+  padding: var(--space-md);
+  border-radius: 6px;
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.result-footer {
+  background: var(--surface-secondary);
+  padding: var(--space-md);
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.result-date {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.result-badge {
+  background: var(--emr-primary);
+  color: var(--text-light);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}

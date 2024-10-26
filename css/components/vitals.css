@@ -1,0 +1,91 @@
+/* System Vitals Component Styles */
+.vitals-container {
+  padding: var(--space-lg);
+  background: var(--surface-primary);
+  border-radius: 8px;
+}
+
+.vitals-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.vitals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.vital-sign {
+  background: var(--surface-tertiary);
+  padding: var(--space-md);
+  border-radius: 6px;
+  border: 1px solid var(--border-medium);
+}
+
+.vital-label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-xs);
+}
+
+.vital-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.vital-value.normal { color: var(--status-success); }
+.vital-value.warning { color: var(--status-warning); }
+.vital-value.critical { color: var(--status-danger); }
+
+.vital-trend {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.vital-range {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: var(--space-xs);
+}
+
+/* System Groups */
+.systems-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-lg);
+}
+
+.system-group {
+  background: var(--surface-secondary);
+  padding: var(--space-md);
+  border-radius: 6px;
+  border: 1px solid var(--border-light);
+}
+
+.system-group h3 {
+  color: var(--text-primary);
+  font-size: 1rem;
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-xs);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.system-metrics {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-xs) 0;
+}

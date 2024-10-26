@@ -1,0 +1,182 @@
+/* Core EMR Layout and Structure */
+:root {
+  /* EMR Theme Colors */
+  --emr-primary: #003875;
+  --emr-primary-dark: #002855;
+  --emr-primary-light: #0069AA;
+  --emr-secondary: #00A3E0;
+  --emr-accent: #4CAF50;
+
+  /* Status Colors */
+  --status-success: #4CAF50;
+  --status-warning: #FFC107;
+  --status-danger: #F44336;
+  --status-info: #2196F3;
+
+  /* Background and Surface Colors */
+  --surface-primary: #FFFFFF;
+  --surface-secondary: #F5F7FA;
+  --surface-tertiary: #E5F2F9;
+
+  /* Border Colors */
+  --border-light: #E1E4E8;
+  --border-medium: #D0D0D0;
+  --border-dark: #A0A0A0;
+
+  /* Text Colors */
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --text-muted: #999999;
+  --text-light: #FFFFFF;
+
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+}
+
+.emr-interface {
+  display: grid;
+  grid-template-columns: 60px 250px 1fr;
+  min-height: 100vh;
+  background: var(--surface-secondary);
+  color: var(--text-primary);
+}
+
+/* Navigation Bar Styles */
+.emr-nav {
+  background: var(--emr-primary);
+  width: 60px;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-sm) 0;
+  z-index: 100;
+}
+
+.nav-icons {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+}
+
+.nav-icon {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-light);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.nav-icon:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.nav-icon.active {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.nav-icon-img {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
+}
+
+/* Sidebar Styles */
+.emr-sidebar {
+  background: var(--surface-primary);
+  border-right: 1px solid var(--border-light);
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  left: 60px;
+  padding: 0;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+}
+
+/* Main Content Area */
+.emr-main {
+  grid-column: 3;
+  padding: var(--space-lg);
+  margin-left: 310px;
+  min-height: 100vh;
+  background: var(--surface-secondary);
+}
+
+/* Chart Container */
+.chart-container {
+  background: var(--surface-primary);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  min-height: calc(100vh - 180px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Loading Indicator */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid var(--emr-primary);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .emr-interface {
+      grid-template-columns: 60px 1fr;
+  }
+
+  .emr-sidebar {
+      transform: translateX(-100%);
+  }
+
+  .emr-sidebar.active {
+      transform: translateX(0);
+  }
+
+  .emr-main {
+      margin-left: 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .emr-main {
+      padding: var(--space-sm);
+  }
+}

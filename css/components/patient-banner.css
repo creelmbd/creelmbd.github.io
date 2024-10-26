@@ -1,0 +1,71 @@
+/* Patient Banner Component */
+.patient-banner {
+  background: var(--emr-primary);
+  color: var(--text-light);
+  padding: var(--space-lg);
+  border-radius: 8px 8px 0 0;
+  margin-bottom: var(--space-lg);
+}
+
+.patient-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.patient-primary {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-md);
+}
+
+.patient-primary h1 {
+  font-size: 1.5rem;
+  margin: 0;
+  font-weight: 500;
+}
+
+.mrn {
+  font-size: 0.875rem;
+  opacity: 0.8;
+}
+
+.patient-details {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-top: var(--space-sm);
+  font-size: 0.9rem;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.detail-separator {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.banner-alerts {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+.alert-badge {
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.alert-badge.certification {
+  background: var(--status-success);
+}
+
+.alert-badge.active {
+  background: var(--status-info);
+}

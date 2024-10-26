@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Health Record - Brian Creelman</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --epic-blue: #3f87c6;
+            --epic-light-blue: #e8f3ff;
+            --epic-border: #ccc;
+            --epic-link: #0067b9;
+            --epic-header: #4a95d6;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            font-size: 12px;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        /* Header Styles */
+        .epic-header {
+            background: var(--epic-header);
+            padding: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #2d7abf;
+        }
+
+        .header-left, .header-right {
+            display: flex;
+            gap: 4px;
+        }
+
+        .header-button {
+            padding: 2px 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            font-size: 11px;
+            border-radius: 2px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .header-button i {
+            font-size: 12px;
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            background: var(--epic-light-blue);
+            padding: 4px 4px 0 4px;
+            border-bottom: 1px solid var(--epic-border);
+        }
+
+        .primary-tabs {
+            display: flex;
+            gap: 2px;
+            margin-bottom: -1px;
+        }
+
+        .tab-button {
+            padding: 4px 12px;
+            background: #f0f0f0;
+            border: 1px solid var(--epic-border);
+            border-bottom: none;
+            border-radius: 4px 4px 0 0;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .tab-button.active {
+            background: white;
+            position: relative;
+        }
+
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: white;
+        }
+
+        /* Secondary Navigation */
+        .sub-nav {
+            background: white;
+            padding: 4px;
+            border-bottom: 1px solid var(--epic-border);
+            display: flex;
+            gap: 1px;
+        }
+
+        .sub-nav-item {
+            padding: 2px 8px;
+            color: var(--epic-link);
+            text-decoration: none;
+            border-right: 1px solid var(--epic-border);
+        }
+
+        /* Main Layout */
+        .main-container {
+            display: flex;
+            height: calc(100vh - 110px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 200px;
+            background: white;
+            border-right: 1px solid var(--epic-border);
+        }
+
+        .patient-info {
+            padding: 8px;
+            border-bottom: 1px solid var(--epic-border);
+        }
+
+        .profile-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 8px;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4CAF50;
+            margin-right: 4px;
+        }
+
+        /* Content Area */
+        .content-area {
+            flex: 1;
+            padding: 8px;
+            overflow: auto;
+        }
+
+        /* Work List Section */
+        .work-list {
+            background: white;
+            border: 1px solid var(--epic-border);
+            margin-bottom: 8px;
+        }
+
+        .section-header {
+            background: #e8f5e9;
+            padding: 4px 8px;
+            font-weight: 500;
+            border-bottom: 1px solid var(--epic-border);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-header i {
+            margin-right: 4px;
+            color: #43a047;
+        }
+
+        .task-list {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .task-item {
+            padding: 4px 8px;
+            border-bottom: 1px solid #eee;
+            display: grid;
+            grid-template-columns: 100px 1fr 100px;
+            align-items: center;
+        }
+
+        /* Vitals Section */
+        .vitals-section {
+            display: flex;
+            gap: 8px;
+        }
+
+        .vitals-chart {
+            flex: 1;
+            background: white;
+            border: 1px solid var(--epic-border);
+        }
+
+        .treatment-team {
+            width: 300px;
+            background: white;
+            border: 1px solid var(--epic-border);
+        }
+
+        .vitals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 8px;
+            padding: 8px;
+        }
+
+        .vital-metric {
+            padding: 8px;
+            background: #f8f9fa;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+
+        .vital-label {
+            display: block;
+            color: #666;
+            margin-bottom: 4px;
+        }
+
+        .vital-value {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--epic-link);
+        }
+
+        .team-member {
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="epic-header">
+        <div class="header-left">
+            <button class="header-button">
+                <i class="fas fa-bars"></i>
+                CMR
+            </button>
+            <button class="header-button">
+                <i class="fas fa-search"></i>
+                System Lookup
+            </button>
+            <button class="header-button">
+                <i class="fas fa-clipboard-list"></i>
+                Work Lists
+            </button>
+        </div>
+        <div class="header-right">
+            <button class="header-button" onclick="window.print()">
+                <i class="fas fa-print"></i>
+                Print
+            </button>
+            <button class="header-button">
+                <i class="fas fa-sign-out-alt"></i>
+                Log Out
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Navigation -->
+    <nav class="nav-tabs">
+        <div class="primary-tabs">
+            <button class="tab-button">Summary</button>
+            <button class="tab-button active">System Review</button>
+            <button class="tab-button">Results</button>
+            <button class="tab-button">Work List</button>
+            <button class="tab-button">Infrastructure</button>
+            <button class="tab-button">Monitoring</button>
+            <button class="tab-button">Reports</button>
+        </div>
+    </nav>
+
+    <!-- Secondary Navigation -->
+    <div class="sub-nav">
+        <a href="#" class="sub-nav-item">Overview</a>
+        <a href="#" class="sub-nav-item">System Status</a>
+        <a href="#" class="sub-nav-item">Infrastructure</a>
+        <a href="#" class="sub-nav-item">Active Orders</a>
+        <a href="#" class="sub-nav-item">Assessments</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="patient-info">
+                <img src="assets/images/me.jpeg" alt="Brian Creelman" class="profile-image">
+                <h3 style="margin: 4px 0;">Brian Creelman</h3>
+                <p style="margin: 4px 0;">Senior DevOps Engineer</p>
+                <p style="margin: 4px 0;">
+                    <span class="status-indicator"></span>
+                    Active Status
+                </p>
+            </div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="content-area">
+            <!-- Work List Section -->
+            <div class="work-list">
+                <div class="section-header">
+                    <i class="fas fa-tasks"></i>
+                    Work List Tasks
+                </div>
+                <ul class="task-list">
+                    <li class="task-item">
+                        <span>08:00</span>
+                        <span>Infrastructure Health Check</span>
+                        <span style="color: #d32f2f;">Priority</span>
+                    </li>
+                    <li class="task-item">
+                        <span>09:30</span>
+                        <span>Review System Metrics</span>
+                        <span>Routine</span>
+                    </li>
+                    <li class="task-item">
+                        <span>11:00</span>
+                        <span>Deploy Updates</span>
+                        <span>Scheduled</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Vitals Section -->
+            <div class="vitals-section">
+                <div class="vitals-chart">
+                    <div class="section-header">
+                        <i class="fas fa-chart-line"></i>
+                        System Vitals
+                    </div>
+                    <div class="vitals-grid">
+                        <div class="vital-metric">
+                            <span class="vital-label">CPU Usage</span>
+                            <span class="vital-value">42%</span>
+                        </div>
+                        <div class="vital-metric">
+                            <span class="vital-label">Memory</span>
+                            <span class="vital-value">6.8 GB</span>
+                        </div>
+                        <div class="vital-metric">
+                            <span class="vital-label">Response Time</span>
+                            <span class="vital-value">42ms</span>
+                        </div>
+                        <div class="vital-metric">
+                            <span class="vital-label">Uptime</span>
+                            <span class="vital-value">99.99%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="treatment-team">
+                    <div class="section-header">
+                        <i class="fas fa-users"></i>
+                        Team Members
+                    </div>
+                    <div class="team-member">
+                        <div>
+                            <strong>DevOps Lead</strong><br>
+                            <small>Primary Contact</small>
+                        </div>
+                        <div>
+                            <i class="fas fa-phone"></i>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div>
+                            <strong>SRE Engineer</strong><br>
+                            <small>On Call</small>
+                        </div>
+                        <div>
+                            <i class="fas fa-phone"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

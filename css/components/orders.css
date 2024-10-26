@@ -1,0 +1,63 @@
+/* Orders (Projects) Component Styles */
+.orders-container {
+  padding: var(--space-lg);
+}
+
+.orders-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+}
+
+.active-orders {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.order-item {
+  background: var(--surface-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: var(--space-md);
+}
+
+.order-status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.status-indicator.in-progress { background: var(--status-info); }
+.status-indicator.completed { background: var(--status-success); }
+.status-indicator.pending { background: var(--status-warning); }
+
+.order-details {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-md);
+}
+
+.order-info h4 {
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.order-meta {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.order-actions {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: flex-end;
+  align-items: center;
+}

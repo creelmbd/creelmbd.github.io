@@ -1,0 +1,105 @@
+<!-- System Vitals Component -->
+<div class="vitals-container">
+  <div class="vitals-header">
+      <h2>System Vitals</h2>
+      <div class="header-actions">
+          <button class="refresh-btn">
+              <i class="fas fa-sync"></i>
+              Refresh
+          </button>
+          <span class="last-checked">Last checked: 5 minutes ago</span>
+      </div>
+  </div>
+
+  <div class="vitals-grid">
+      <div class="vital-sign">
+          <div class="vital-label">System Health</div>
+          <div class="vital-value normal">98.6%</div>
+          <div class="vital-trend">
+              <i class="fas fa-arrow-up"></i>
+              0.2% from last check
+          </div>
+          <div class="vital-range">Target: >98%</div>
+      </div>
+
+      <div class="vital-sign">
+          <div class="vital-label">Response Time</div>
+          <div class="vital-value normal">42ms</div>
+          <div class="vital-trend">
+              <i class="fas fa-arrow-down"></i>
+              5ms improvement
+          </div>
+          <div class="vital-range">Target: <100ms</div>
+      </div>
+
+      <div class="vital-sign">
+          <div class="vital-label">Memory Utilization</div>
+          <div class="vital-value normal">72%</div>
+          <div class="vital-trend stable">
+              <i class="fas fa-minus"></i>
+              Stable
+          </div>
+          <div class="vital-range">Target: <80%</div>
+      </div>
+
+      <div class="vital-sign">
+          <div class="vital-label">CPU Load</div>
+          <div class="vital-value normal">0.65</div>
+          <div class="vital-trend">
+              <i class="fas fa-arrow-down"></i>
+              0.1 decrease
+          </div>
+          <div class="vital-range">Target: <1.0</div>
+      </div>
+  </div>
+
+  <div class="systems-grid">
+      <div class="system-group">
+          <h3>AWS Infrastructure</h3>
+          <div class="metric-row">
+              <span class="metric-label">EC2 Instances</span>
+              <span class="metric-value">12 Active</span>
+          </div>
+          <div class="metric-row">
+              <span class="metric-label">RDS Status</span>
+              <span class="metric-value optimal">Healthy</span>
+          </div>
+          <div class="metric-row">
+              <span class="metric-label">S3 Storage</span>
+              <span class="metric-value">2.4 TB</span>
+          </div>
+      </div>
+
+      <div class="system-group">
+          <h3>Container Health</h3>
+          <div class="metric-row">
+              <span class="metric-label">Docker Containers</span>
+              <span class="metric-value">45 Running</span>
+          </div>
+          <div class="metric-row">
+              <span class="metric-label">K8s Pods</span>
+              <span class="metric-value">28/30 Ready</span>
+          </div>
+          <div class="metric-row">
+              <span class="metric-label">Registry Size</span>
+              <span class="metric-value">860 GB</span>
+          </div>
+      </div>
+
+      <div class="system-group">
+          <h3>CI/CD Pipeline</h3>
+          <div class="metric-row">
+              <span class="metric-label">Build Success</span>
+              <span class="metric-value success">98.2%</span>
+          </div>
+          <div class="metric-row">
+              <span class="metric-label">Deploy Frequency</span>
+              <span class="metric-value">12/day</span>
+          </div>
+          <div class="metric-row">
+              <span class="metric-label">Lead Time</span>
+              <span class="metric-value">45 mins</span>
+          </div>
+      </div>
+  </div>
+</div>

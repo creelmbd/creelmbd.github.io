@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brian Creelman - DevOps Terminal</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/tech.css" rel="stylesheet">
+</head>
+<body class="terminal-interface">
+    <div class="terminal-window">
+        <div class="terminal-header">
+            <div class="window-controls">
+                <span class="control close"></span>
+                <span class="control minimize"></span>
+                <span class="control maximize"></span>
+            </div>
+            <div class="terminal-title">brian@devops:~</div>
+        </div>
+        <div class="terminal-content">
+            <div id="output"></div>
+            <div class="command-line">
+                <span class="prompt">$</span>
+                <input type="text" id="commandInput" autofocus>
+            </div>
+        </div>
+    </div>
+    <script src="js/terminal.js"></script>
+</body>
+</html>

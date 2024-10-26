@@ -1,0 +1,67 @@
+/* Progress Notes Component Styles */
+.progress-notes {
+  padding: var(--space-lg);
+}
+
+.note-entry {
+  background: var(--surface-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  margin-bottom: var(--space-lg);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.note-header {
+  background: var(--surface-tertiary);
+  padding: var(--space-md);
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.note-date {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.note-author {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.note-content {
+  padding: var(--space-lg);
+}
+
+.note-content h4 {
+  color: var(--emr-primary);
+  margin-bottom: var(--space-md);
+}
+
+.note-details {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.note-details li {
+  position: relative;
+  padding-left: var(--space-lg);
+  margin-bottom: var(--space-sm);
+}
+
+.note-details li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--emr-secondary);
+}
+
+.note-footer {
+  background: var(--surface-secondary);
+  padding: var(--space-md);
+  border-top: 1px solid var(--border-light);
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
