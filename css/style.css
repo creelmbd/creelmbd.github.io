@@ -13,6 +13,7 @@
   --primary-800: #003875;
   --primary-900: #002855;
 
+
   /* Neutral Colors */
   --neutral-50: #F8FAFC;
   --neutral-100: #F1F5F9;
@@ -49,7 +50,7 @@
   /* Theme Colors */
   --background: var(--neutral-50);
   --surface: #FFFFFF;
-  --text-primary: var(--neutral-900);
+  --text-primary: var(--neutral-100);
   --text-secondary: var(--neutral-600);
   --text-tertiary: var(--neutral-500);
   --border: var(--neutral-200);
@@ -140,7 +141,7 @@ a {
 }
 
 a:hover {
-  color: var(--primary-700);
+  color: var(--primary-300);
 }
 
 /* Buttons */
