@@ -2,116 +2,300 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HL7 Message Reader</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f4f7f9;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-
-        h1 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-        }
-
-        textarea {
-            width: 100%;
-            max-width: 700px;
-            height: 150px;
-            padding: 10px;
-            border: 1px solid #dfe6e9;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 1rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            resize: none;
-            background-color: #fff;
-        }
-
-        button {
-            background-color: #2980b9;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #3498db;
-        }
-
-        h2 {
-            color: #34495e;
-            margin-top: 30px;
-        }
-
-        pre {
-            background-color: #ecf0f1;
-            padding: 20px;
-            border-radius: 8px;
-            font-size: 1rem;
-            width: 100%;
-            max-width: 700px;
-            white-space: pre-wrap;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 50px;
-        }
-    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>HL7 Message Reader</h1>
-    <textarea id="hl7Input" placeholder="Paste your HL7 message here"></textarea>
-    <br>
-    <button onclick="parseHL7()">Convert to Human-Readable</button>
-    <h2>Human-Readable Output:</h2>
-    <pre id="output"></pre>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-center">HL7 Message Reader</h1>
+
+        <div class="mb-6">
+            <textarea
+                id="input"
+                class="w-full h-48 p-4 border rounded-lg shadow-sm mb-4"
+                placeholder="MSH|^~\&|SENDING_APPLICATION|SENDING_FACILITY|RECEIVING_APPLICATION|RECEIVING_FACILITY|20240101120000||ADT^A01|MSG00001|P|2.3
+EVN|A01|20240101120000||||20240101120000
+PID|||12345^^^MRN||DOE^JOHN^^^^||19700101|M|||123 MAIN ST^^ANYTOWN^ST^12345
+NK1|1|DOE^JANE^^^^|SPO||(555)555-5555
+PV1||O|OP^OUTPATIENT^||||123^DOCTOR^BOB|||||||||||VIS123|||||||||||||||||||||||||20240101120000
+DG1|1|ICD10|A69.20^Lyme Disease^I10|Lyme Disease||A
+AL1|1|DA|1^PENICILLIN^ALLERGIES||SEVERE|HIVES"></textarea>
+
+            <div class="flex gap-4 mb-4 flex-wrap">
+                <button
+                    onclick="convertMessage()"
+                    class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg">
+                    Convert to Human-Readable
+                </button>
+                <button
+                    onclick="loadTestData()"
+                    class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg">
+                    Test with Example
+                </button>
+                <button
+                    onclick="startOver()"
+                    class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg">
+                    Start Over
+                </button>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-sm">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-semibold">Human-Readable Output:</h2>
+                <button
+                    onclick="copyToClipboard()"
+                    class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+                    id="copyButton">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
+                    </svg>
+                    Copy to Clipboard
+                </button>
+            </div>
+            <pre id="output" class="whitespace-pre-wrap font-mono text-sm"></pre>
+        </div>
+    </div>
 
     <script>
-        function parseHL7() {
-            const hl7 = document.getElementById('hl7Input').value;
-            const segments = hl7.split('\n');
+        // Utility function to parse HL7 datetime
+        function formatHL7DateTime(datetime) {
+            if (!datetime) return '';
+            try {
+                const year = datetime.substring(0, 4);
+                const month = datetime.substring(4, 6);
+                const day = datetime.substring(6, 8);
+                const hour = datetime.substring(8, 10) || '00';
+                const minute = datetime.substring(10, 12) || '00';
+                const second = datetime.substring(12, 14) || '00';
+                return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+            } catch (e) {
+                return datetime;
+            }
+        }
+
+        // Utility function to parse HL7 composite fields
+        function parseCompositeField(field, separator = '^') {
+            if (!field) return [];
+            return field.split(separator).map(part => part.trim());
+        }
+
+        // Utility function to format name components
+        function formatName(nameField) {
+            if (!nameField) return '';
+            const parts = parseCompositeField(nameField);
+            const [familyName, givenName, middleName, suffix, prefix] = parts;
+            let formattedName = '';
+
+            if (prefix) formattedName += `${prefix} `;
+            if (givenName) formattedName += givenName;
+            if (middleName) formattedName += ` ${middleName}`;
+            if (familyName) formattedName += ` ${familyName}`;
+            if (suffix) formattedName += `, ${suffix}`;
+
+            return formattedName.trim() || nameField;
+        }
+
+        function convertMessage() {
+            const input = document.getElementById('input').value;
+            if (!input.trim()) {
+                alert('Please enter an HL7 message');
+                return;
+            }
+
+            // Split into segments
+            const segments = input.split('\n');
             let output = '';
 
             segments.forEach(segment => {
+                if (!segment.trim()) return;
+
                 const fields = segment.split('|');
-                switch(fields[0]) {
+                const segmentType = fields[0];
+
+                switch(segmentType) {
                     case 'MSH':
-                        output += `Message Header:\n Sending Application: ${fields[2]} \n Receiving Application: ${fields[5]} \n Date/Time: ${fields[6]} \n Message Type: ${fields[8]}\n\n`;
+                        output += 'Message Header:\n';
+                        output += `  Sending Application: ${fields[2] || 'N/A'}\n`;
+                        output += `  Sending Facility: ${fields[3] || 'N/A'}\n`;
+                        output += `  Receiving Application: ${fields[4] || 'N/A'}\n`;
+                        output += `  Receiving Facility: ${fields[5] || 'N/A'}\n`;
+                        output += `  Message Timestamp: ${formatHL7DateTime(fields[6])}\n`;
+                        output += `  Message Type: ${fields[8] || 'N/A'}\n`;
+                        output += `  Message Control ID: ${fields[9] || 'N/A'}\n`;
+                        output += `  Processing ID: ${fields[10] || 'N/A'}\n`;
+                        output += `  Version: ${fields[11] || 'N/A'}\n`;
                         break;
+
+                    case 'EVN':
+                        output += '\nEvent Information:\n';
+                        output += `  Event Type: ${fields[1] || 'N/A'}\n`;
+                        output += `  Recorded Date/Time: ${formatHL7DateTime(fields[2])}\n`;
+                        output += `  Event Reason: ${fields[4] || 'N/A'}\n`;
+                        output += `  Event Occurred: ${formatHL7DateTime(fields[6])}\n`;
+                        break;
+
                     case 'PID':
-                        output += `Patient Information:\n Name: ${fields[5].replace('^', ' ')} \n Date of Birth: ${fields[7]} \n Gender: ${fields[8]} \n Address: ${fields[11].replace('^', ', ')}\n\n`;
+                        output += '\nPatient Information:\n';
+                        if (fields[3]) {
+                            const ids = parseCompositeField(fields[3]);
+                            output += `  Patient ID: ${ids[0] || 'N/A'}\n`;
+                            if (ids[3]) output += `  ID Type: ${ids[3]}\n`;
+                        }
+                        if (fields[5]) {
+                            output += `  Patient Name: ${formatName(fields[5])}\n`;
+                        }
+                        output += `  Date of Birth: ${fields[7] ? formatHL7DateTime(fields[7]).split(' ')[0] : 'N/A'}\n`;
+                        output += `  Gender: ${fields[8] || 'N/A'}\n`;
+                        if (fields[11]) {
+                            const addr = parseCompositeField(fields[11]);
+                            output += `  Address: ${addr.filter(Boolean).join(', ') || 'N/A'}\n`;
+                        }
+                        if (fields[13]) {
+                            const phone = parseCompositeField(fields[13]);
+                            output += `  Phone: ${phone[0] || 'N/A'}\n`;
+                        }
                         break;
-                    case 'OBR':
-                        output += `Order Information:\n Test Ordered: ${fields[4].replace('^', ' ')} \n Ordered By: ${fields[10]}\n\n`;
+
+                    case 'NK1':
+                        output += '\nNext of Kin:\n';
+                        output += `  Set ID: ${fields[1] || 'N/A'}\n`;
+                        output += `  Name: ${formatName(fields[2])}\n`;
+                        output += `  Relationship: ${fields[3] || 'N/A'}\n`;
+                        if (fields[5]) {
+                            const phone = parseCompositeField(fields[5]);
+                            output += `  Phone: ${phone[0] || 'N/A'}\n`;
+                        }
                         break;
-                    case 'OBX':
-                        output += `Observation:\n Test: ${fields[3].replace('^', ' ')} \n Value: ${fields[5]} ${fields[6]} \n Reference Range: ${fields[7]}\n\n`;
+
+                    case 'PV1':
+                        output += '\nVisit Information:\n';
+                        output += `  Patient Class: ${fields[2] || 'N/A'}\n`;
+                        if (fields[3]) {
+                            const location = parseCompositeField(fields[3]);
+                            output += `  Location: ${location[1] || 'N/A'}\n`;
+                        }
+                        if (fields[7]) {
+                            const doctor = parseCompositeField(fields[7]);
+                            if (doctor.length > 2) {
+                                output += `  Attending Doctor: ${formatName(fields[7])}\n`;
+                                output += `  Doctor ID: ${doctor[0] || 'N/A'}\n`;
+                            }
+                        }
+                        output += `  Visit Number: ${fields[19] || 'N/A'}\n`;
+                        if (fields[44]) {
+                            output += `  Admit Date/Time: ${formatHL7DateTime(fields[44])}\n`;
+                        }
                         break;
+
                     case 'DG1':
-                        output += `Diagnosis:\n ICD-10 Code: ${fields[3]} \n Description: ${fields[4]}\n\n`;
+                        output += '\nDiagnosis Information:\n';
+                        output += `  Set ID: ${fields[1] || 'N/A'}\n`;
+                        output += `  Coding System: ${fields[2] || 'N/A'}\n`;
+                        if (fields[3]) {
+                            const diagnosis = parseCompositeField(fields[3]);
+                            output += `  Code: ${diagnosis[0] || 'N/A'}\n`;
+                            output += `  Description: ${diagnosis[1] || 'N/A'}\n`;
+                            output += `  Coding System: ${diagnosis[2] || 'N/A'}\n`;
+                        }
+                        output += `  Type: ${fields[6] || 'N/A'}\n`;
                         break;
-                    case 'PR1':
-                        output += `Procedure:\n Procedure Code: ${fields[3]} \n Description: ${fields[4]}\n\n`;
+
+                    case 'AL1':
+                        output += '\nAllergy Information:\n';
+                        output += `  Set ID: ${fields[1] || 'N/A'}\n`;
+                        output += `  Allergy Type: ${fields[2] || 'N/A'}\n`;
+                        if (fields[3]) {
+                            const allergy = parseCompositeField(fields[3]);
+                            output += `  Code: ${allergy[0] || 'N/A'}\n`;
+                            output += `  Description: ${allergy[1] || 'N/A'}\n`;
+                        }
+                        output += `  Severity: ${fields[5] || 'N/A'}\n`;
+                        output += `  Reaction: ${fields[6] || 'N/A'}\n`;
                         break;
-                    case 'SIU':
-                        output += `Schedule Information:\n Appointment ID: ${fields[2]} \n Start Date/Time: ${fields[6]} \n Location: ${fields[7]}\n\n`;
+
+                    case 'OBX':
+                        output += '\nObservation Result:\n';
+                        output += `  Set ID: ${fields[1] || 'N/A'}\n`;
+                        output += `  Value Type: ${fields[2] || 'N/A'}\n`;
+                        if (fields[3]) {
+                            const observation = parseCompositeField(fields[3]);
+                            output += `  Observation ID: ${observation[0] || 'N/A'}\n`;
+                            output += `  Description: ${observation[1] || 'N/A'}\n`;
+                        }
+                        output += `  Value: ${fields[5] || 'N/A'}\n`;
+                        output += `  Units: ${fields[6] || 'N/A'}\n`;
+                        output += `  Reference Range: ${fields[7] || 'N/A'}\n`;
+                        output += `  Abnormal Flags: ${fields[8] || 'N/A'}\n`;
                         break;
+
+                    case 'ORC':
+                        output += '\nOrder Information:\n';
+                        output += `  Order Control: ${fields[1] || 'N/A'}\n`;
+                        output += `  Placer Order #: ${fields[2] || 'N/A'}\n`;
+                        output += `  Filler Order #: ${fields[3] || 'N/A'}\n`;
+                        output += `  Order Status: ${fields[5] || 'N/A'}\n`;
+                        break;
+
+                    default:
+                        output += `\n${segmentType} Segment:\n`;
+                        output += `  Raw Data: ${segment}\n`;
                 }
             });
 
-            document.getElementById('output').innerText = output;
+            document.getElementById('output').textContent = output;
+            // Reset copy button text if it was changed
+            document.getElementById('copyButton').innerHTML = `
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
+                </svg>
+                Copy to Clipboard
+            `;
+        }
+
+        function loadTestData() {
+            document.getElementById('input').value = document.getElementById('input').placeholder;
+            convertMessage();
+        }
+
+        function startOver() {
+            document.getElementById('input').value = '';
+            document.getElementById('output').textContent = '';
+            document.getElementById('copyButton').innerHTML = `
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
+                </svg>
+                Copy to Clipboard
+            `;
+        }
+
+        async function copyToClipboard() {
+            const output = document.getElementById('output').textContent;
+            if (!output) {
+                alert('No content to copy');
+                return;
+            }
+
+            try {
+                await navigator.clipboard.writeText(output);
+                const copyButton = document.getElementById('copyButton');
+                copyButton.innerHTML = `
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Copied!
+                `;
+                setTimeout(() => {
+                    copyButton.innerHTML = `
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
+                        </svg>
+                        Copy to Clipboard
+                    `;
+                }, 2000);
+            } catch (err) {
+                alert('Failed to copy text to clipboard');
+            }
         }
     </script>
 </body>
