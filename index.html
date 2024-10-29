@@ -1,463 +1,347 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brian Creelman - Portfolio</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Brian Creelman - Senior Site Reliability Engineer</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			min-height: 100vh;
+			background: linear-gradient(135deg, #ffffff 0%, #4CAF50 30%, #1a237e 60%, #000000 100%);
+			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+			color: white;
+			overflow-x: hidden;
+		}
+
+		.landing-container {
+			min-height: 100vh;
+			padding: 2rem;
+			display: flex;
+			flex-direction: column;
+		}
+
+		.landing-header {
+			display: flex;
+			justify-content: flex-end;
+			padding: 1rem 0;
+		}
+
+		.nav-links a {
+			margin-left: 1rem;
+			color: white;
+			text-decoration: none;
+			display: inline-flex;
+			align-items: center;
+			gap: 0.5rem;
+		}
+
+		.landing-content {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+		}
+
+		.hero-section {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding: 2rem;
+		}
+
+		.hero-content {
+			display: flex;
+			align-items: center;
+			gap: 3rem;
+			max-width: 1200px;
+			width: 100%;
+		}
+
+		.profile-image {
+			width: 200px;
+			height: 200px;
+			border-radius: 50%;
+			object-fit: cover;
+			border: 4px solid white;
+		}
+
+		.hero-text {
+			flex: 1;
+		}
+
+		h1 {
+			font-size: 3rem;
+			margin-bottom: 0.5rem;
+		}
+
+		.tech-stack {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 1rem;
+			margin-top: 2rem;
+			align-items: center;
+		}
+
+		.tech-stack i {
+			font-size: 40px;
+			color: white;
+		}
+
+		.tech-icon {
+			width: 40px;
+			height: 40px;
+			filter: brightness(0) invert(1);
+		}
+
+		.experience-selection {
+			margin-top: 4rem;
+			text-align: center;
+		}
+
+		.experience-cards {
+			display: flex;
+			gap: 2rem;
+			margin-top: 2rem;
+			flex-wrap: wrap;
+			justify-content: center;
+		}
+
+		.experience-card {
+			background: rgba(255, 255, 255, 0.1);
+			backdrop-filter: blur(10px);
+			border-radius: 1rem;
+			padding: 2rem;
+			flex: 1;
+			min-width: 300px;
+			max-width: 400px;
+			text-decoration: none;
+			color: white;
+			transition: transform 0.3s ease;
+		}
+
+		.experience-card:hover {
+			transform: translateY(-5px);
+		}
+
+		.card-features {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.5rem;
+			margin: 1rem 0;
+			justify-content: center;
+		}
+
+		.feature-tag {
+			background: rgba(255, 255, 255, 0.2);
+			padding: 0.25rem 0.75rem;
+			border-radius: 1rem;
+			font-size: 0.875rem;
+		}
+
+		.footer-content {
+			margin-top: auto;
+			padding: 2rem 0;
+			text-align: center;
+		}
+
+		.footer-stats {
+			display: flex;
+			justify-content: center;
+			gap: 2rem;
+			margin: 1rem 0;
+			flex-wrap: wrap;
+		}
+
+		.stat-item {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+		}
+
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 2rem;
+			flex-wrap: wrap;
+		}
+
+		.footer-link {
+			color: white;
+			text-decoration: none;
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+		}
+
+		h2,
+		h3 {
+			margin-bottom: 1rem;
+		}
+
+		.fa,
+		.fab,
+		.far,
+		.fas {
+			width: 20px;
+		}
+
+		@media (max-width: 768px) {
+			.hero-content {
+				flex-direction: column;
+				text-align: center;
+				gap: 1.5rem;
+			}
+
+			.profile-image {
+				width: 150px;
+				height: 150px;
+			}
+
+			h1 {
+				font-size: 2rem;
+			}
+
+			.tech-stack {
+				justify-content: center;
+			}
+
+			.landing-container {
+				padding: 1rem;
+			}
+
+			.footer-stats {
+				gap: 1rem;
+			}
+		}
+	</style>
 </head>
-<body class="landing-page">
-    <div class="landing-container">
-        <!-- Header Section -->
-        <header class="landing-header">
-            <nav class="top-nav">
-                <div class="nav-links">
-                    <a href="https://www.linkedin.com/in/brian-creelman-37813966/" target="_blank">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="https://github.com/creelmbd" target="_blank">
-                        <i class="fab fa-github"></i>
-                    </a>
-                </div>
-            </nav>
-        </header>
 
-        <!-- Main Content -->
-        <main class="landing-content">
-            <div class="hero-section">
-                <div class="hero-content">
-                    <h1 class="animate-fade-in">Brian Creelman</h1>
-                    <p class="subtitle animate-fade-in">Senior Site Reliability Engineer</p>
-                    <div class="tech-stack animate-fade-in">
-											<img src="assets/images/aws.svg" alt="AWS" class="tech-icon" title="Amazon Web Services">
-											<img src="assets/images/terraform-icon.svg" alt="Terraform" class="tech-icon" title="Terraform">
-											<img src="assets/images/docker-icon.svg" alt="Docker" class="tech-icon" title="Docker">
-											<img src="assets/images/python.svg" alt="Python" class="tech-icon" title="Python">
-											<img src="assets/images/grafana.svg" alt="Grafana" class="tech-icon" title="Grafana">
-											<img src="assets/images/javascript.svg" alt="JavaScript" class="tech-icon" title="JavaScript">
-											<img src="assets/images/typescript-icon.svg" alt="TypeScript" class="tech-icon" title="TypeScript">
-											<img src="assets/images/jira.svg" alt="Jira" class="tech-icon" title="Jira">
-											<img src="assets/images/prometheus.svg" alt="Prometheus" class="tech-icon" title="Prometheus">
-											<img src="assets/images/new-relic-icon.svg" alt="New Relic" class="tech-icon" title="New Relic">
-											<img src="assets/images/pagerduty-icon.svg" alt="PagerDuty" class="tech-icon" title="PagerDuty">
-                    </div>
-                </div>
-            </div>
+<body>
+	<div class="landing-container">
+		<header class="landing-header">
+			<nav class="nav-links">
+				<a href="https://www.linkedin.com/in/brian-creelman-37813966/" target="_blank">
+					<i class="fab fa-linkedin"></i>
+					LinkedIn
+				</a>
+				<a href="https://github.com/creelmbd" target="_blank">
+					<i class="fab fa-github"></i>
+					GitHub
+				</a>
+			</nav>
+		</header>
 
-            <div class="experience-selection animate-fade-in">
-                <h2>Choose Your Experience</h2>
-                <p class="selection-description">Select your preferred way to explore my portfolio</p>
+		<main class="landing-content">
+			<section class="hero-section">
+				<div class="hero-content">
+					<img src="assets/images/me.jpeg" alt="Brian Creelman" class="profile-image">
+					<div class="hero-text">
+						<h1>Brian Creelman</h1>
+						<p>Senior Site Reliability Engineer</p>
+						<div class="certifications">
+							<div class="cert-badge">
+								<i class="fab fa-aws"></i>
+								AWS Certified Cloud Practitioner
+							</div>
+							<div class="cert-badge">
+								<i class="fas fa-award"></i>
+								CompTIA A+
+							</div>
+							<div class="cert-badge">
+								<i class="fas fa-certificate"></i>
+								ITIL v4 Foundation
+							</div>
+						</div>
+						<div class="tech-stack">
+							<i class="devicon-amazonwebservices-plain"></i>
+							<i class="devicon-terraform-plain"></i>
+							<i class="devicon-docker-plain"></i>
+							<i class="devicon-python-plain"></i>
+							<i class="devicon-grafana-original"></i>
+							<i class="devicon-javascript-plain"></i>
+							<i class="devicon-typescript-plain"></i>
+							<i class="devicon-jira-plain"></i>
+							<!-- Local images for tools not available in Devicon -->
+							<img src="assets/images/prometheus.svg" alt="Prometheus" class="tech-icon">
+							<img src="assets/images/new-relic-icon.svg" alt="New Relic" class="tech-icon">
+							<img src="assets/images/pagerduty-icon.svg" alt="PagerDuty" class="tech-icon">
+						</div>
+					</div>
+				</div>
+			</section>
 
-                <div class="experience-cards">
-                    <!-- Healthcare Systems Card -->
-                    <a href="emr.html" class="experience-card health-systems">
-                        <div class="card-content">
-                            <div class="card-icon">
-                                <img src="assets/images/ehr.png" alt="Healthcare Systems Interface">
-                            </div>
-                            <h3>Healthcare Systems View</h3>
-                            <p>Experience my work through an EMR-inspired interface</p>
-                            <div class="card-features">
-															<span class="feature-tag"><i class="fas fa-heartbeat"></i> Patient Data Security</span>
-															<span class="feature-tag"><i class="fas fa-notes-medical"></i> EMR Integrations</span>
-															<span class="feature-tag"><i class="fas fa-stethoscope"></i> Clinical Support Systems</span>
-															<span class="feature-tag"><i class="fas fa-file-medical-alt"></i> HIPAA Compliance</span>
-															<span class="feature-tag"><i class="fas fa-hospital-user"></i> Patient Management</span>
-															<span class="feature-tag"><i class="fas fa-pills"></i> Medication Tracking</span>
-													</div>
+			<section class="experience-selection">
+				<h2>Choose Your Experience</h2>
+				<div class="experience-cards">
+					<a href="emr.html" class="experience-card health-systems">
+						<h3>Healthcare Systems View</h3>
+						<p>Experience my work through an EMR-inspired interface</p>
+						<div class="card-features">
+							<span class="feature-tag">Patient Data Security</span>
+							<span class="feature-tag">EMR Integrations</span>
+							<span class="feature-tag">Clinical Support Systems</span>
+							<span class="feature-tag">HIPAA Compliance</span>
+						</div>
+					</a>
+					<a href="tech.html" class="experience-card terminal">
+						<h3>DevOps Terminal</h3>
+						<p>Access my portfolio through a developer console</p>
+						<div class="card-features">
+							<span class="feature-tag">Infrastructure as Code</span>
+							<span class="feature-tag">Cloud Architecture</span>
+							<span class="feature-tag">DevSecOps</span>
+							<span class="feature-tag">Continuous Integration</span>
+						</div>
+					</a>
+				</div>
+			</section>
+		</main>
 
-                            <div class="card-cta">
-                                <span class="btn-text">Launch Interface</span>
-                                <i class="fas fa-arrow-right"></i>
-                            </div>
-                        </div>
-                        <div class="card-background">
-                            <img src="assets/images/cmr.png" alt="EMR Interface Preview" class="card-preview">
-                        </div>
-                    </a>
+		<footer class="footer-content">
+			<div class="footer-stats">
+				<span class="stat-item">
+					<i class="fas fa-briefcase"></i>
+					14 Years Experience
+				</span>
+				<span class="stat-item">
+					<i class="fas fa-hospital"></i>
+					62 Health Systems
+				</span>
+				<span class="stat-item">
+					<i class="fas fa-plug"></i>
+					117 Integrations
+				</span>
+				<span class="stat-item">
+					<i class="fas fa-rocket"></i>
+					Start Up Enthusiast
+				</span>
+			</div>
+			<div class="footer-links">
+				<a href="mailto:creelmbd@gmail.com" class="footer-link">
+					<i class="fas fa-envelope"></i>
+					Contact
+				</a>
+				<a href="/resume.pdf" class="footer-link">
+					<i class="fas fa-file-alt"></i>
+					Resume
+				</a>
+				<a href="https://www.linkedin.com/in/brian-creelman-37813966/" class="footer-link" target="_blank">
+					<i class="fab fa-linkedin"></i>
+					LinkedIn
+				</a>
+			</div>
+			<p>© 2024 Brian Creelman</p>
+		</footer>
+	</div>
+</body>
 
-                    <!-- Terminal View Card -->
-                    <a href="tech.html" class="experience-card terminal">
-                        <div class="card-content">
-                            <div class="card-icon">
-                                <img src="assets/images/devsecops.jpg" alt="Terminal Interface">
-                            </div>
-                            <h3>DevOps Terminal</h3>
-                            <p>Access my portfolio through a developer console</p>
-                            <div class="card-features">
-															<span class="feature-tag"><i class="fas fa-server"></i> Infrastructure as Code</span>
-															<span class="feature-tag"><i class="fas fa-cloud"></i> Cloud Architecture</span>
-															<span class="feature-tag"><i class="fas fa-lock"></i> DevSecOps</span>
-															<span class="feature-tag"><i class="fas fa-code"></i> Continuous Integration</span>
-															<span class="feature-tag"><i class="fas fa-cogs"></i> Automation Pipelines</span>
-															<span class="feature-tag"><i class="fas fa-tools"></i> Incident Management</span>
-													</div>
-
-                            <div class="card-cta">
-                                <span class="btn-text">Open Terminal</span>
-                                <i class="fas fa-arrow-right"></i>
-                            </div>
-                        </div>
-                        <div class="card-background">
-                            <img src="assets/images/code.png" alt="Terminal Interface Preview" class="card-preview">
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </main>
-
-        <!-- Background Elements -->
-        <div class="background-elements">
-            <div class="floating-icon aws">
-                <img src="assets/images/aws.svg" alt="AWS" class="tech-icon-bg">
-            </div>
-            <div class="floating-icon docker">
-                <img src="assets/images/docker-icon.svg" alt="Docker" class="tech-icon-bg">
-            </div>
-            <div class="floating-icon terraform">
-                <img src="assets/images/terraform-icon.svg" alt="Terraform" class="tech-icon-bg">
-            </div>
-            <div class="floating-icon python">
-                <img src="assets/images/python.svg" alt="Python" class="tech-icon-bg">
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <footer class="landing-footer">
-            <div class="footer-content">
-                <div class="footer-info">
-                    <p>© 2024 Brian Creelman</p>
-                    <div class="footer-stats">
-                        <span class="stat-item">
-                            <i class="fas fa-code-branch"></i>
-                            14 Years Experience
-                        </span>
-                        <span class="stat-item">
-                            <i class="fas fa-project-diagram"></i>
-                            100+ Projects Delivered
-                        </span>
-                        <span class="stat-item">
-                            <i class="fas fa-certificate"></i>
-                            AWS Certified
-                        </span>
-                    </div>
-                </div>
-                <div class="footer-links">
-                    <a href="mailto:creelmbd@gmail.com" class="footer-link">
-                        <i class="fas fa-envelope"></i>
-                        Contact
-                    </a>
-                    <a href="/resume.pdf" class="footer-link">
-                        <i class="fas fa-file-alt"></i>
-                        Resume
-                    </a>
-                    <a href="https://www.linkedin.com/in/brian-creelman-37813966/" class="footer-link" target="_blank">
-                        <i class="fab fa-linkedin"></i>
-                        LinkedIn
-                    </a>
-                </div>
-            </div>
-        </footer>
-    </div>
-
-    <!-- Additional styles for this page -->
-    <style>
-        .landing-container {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .landing-header {
-            padding: 1.5rem;
-            position: relative;
-            z-index: 10;
-        }
-
-        .top-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: right;
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-        }
-
-        .nav-logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: white;
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-						align-items: right;
-        }
-
-        .nav-links a {
-            color: white;
-            font-size: 1.25rem;
-            opacity: 0.8;
-            transition: opacity 0.2s;
-        }
-
-        .nav-links a:hover {
-            opacity: 1;
-        }
-
-        .hero-section {
-            text-align: center;
-            padding: 4rem 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .hero-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #fff, #88ccff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .subtitle {
-            font-size: 1.5rem;
-            color: #88ccff;
-            margin-bottom: 2rem;
-        }
-
-        .tech-stack {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .tech-icon {
-            width: 48px;
-            height: 48px;
-            filter: brightness(1) invert(0);
-            opacity: 0.8;
-            transition: all 0.3s ease;
-        }
-
-        .tech-icon:hover {
-            opacity: 1;
-            transform: translateY(-5px);
-        }
-
-        .experience-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .experience-card {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 2rem;
-            text-decoration: none;
-            color: white;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .experience-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255, 255, 255, 0.2);
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .card-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .card-icon {
-            width: 64px;
-            height: 64px;
-            margin-bottom: 1.5rem;
-        }
-
-        .card-features {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .feature-tag {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.875rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .card-cta {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 2rem;
-            font-weight: 500;
-        }
-
-        .card-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            opacity: 0.4;
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        .card-preview {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .background-elements {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .floating-icon {
-						position: relative;
-            opacity: 0.1;
-        }
-
-        .tech-icon-bg {
-            width: 128px;
-            height: 128px;
-            filter: brightness(0) invert(1);
-        }
-
-        .aws { top: 12%; left: 7%; animation: float 18s ease-in-out infinite alternate; }
-				.docker { top: 35%; right: 10%; animation: float 27s ease-in-out infinite alternate-reverse; }
-				.terraform { bottom: 25%; left: 15%; animation: float 23s ease-in-out infinite alternate; }
-				.python { bottom: 32%; right: 20%; animation: float 30s ease-in-out infinite alternate-reverse; }
-
-
-        @keyframes float {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(20px, 20px) rotate(180deg); }
-            100% { transform: translate(0, 0) rotate(360deg); }
-        }
-
-        .landing-footer {
-            margin-top: auto;
-            padding: 2rem;
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 2rem;
-        }
-
-        .footer-stats {
-            display: flex;
-            gap: 2rem;
-            margin-top: 1rem;
-        }
-
-        .stat-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            opacity: 0.8;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .footer-link {
-            color: white;
-            text-decoration: none;
-            opacity: 0.8;
-            transition: opacity 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .footer-link:hover {
-            opacity: 1;
-        }
-
-        @media (max-width: 768px) {
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .tech-stack {
-                gap: 1rem;
-            }
-
-            .tech-icon {
-                width: 36px;
-                height: 36px;
-            }
-
-            .experience-cards {
-                grid-template-columns: 1fr;
-                padding: 1rem;
-            }
-
-            .footer-content {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .footer-stats {
-                flex-direction: column;
-                gap: 1rem;
-            }
-        }
-    </style>
-
-    <!-- Animations -->
-    <style>
-        .animate-fade-in {
-            animation: fadeIn 1.2s ease-out forwards;
-            opacity: 0;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .hero-content > * {
-            animation-delay: var(--delay, 0s);
-        }
-
+</html>

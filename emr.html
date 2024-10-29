@@ -1,458 +1,644 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>System Health Record - Brian Creelman</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <title>Brian Creelman - EMR Portfolio</title>
     <style>
         :root {
-            --epic-blue: #3f87c6;
-            --epic-light-blue: #e8f3ff;
-            --epic-border: #ccc;
-            --epic-link: #0067b9;
-            --epic-header: #4a95d6;
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --background-color: #f3f4f6;
+            --text-color: #1f2937;
+            --border-color: #e5e7eb;
         }
 
         body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-            font-size: 12px;
-            background: #f5f5f5;
-            color: #333;
+            background-color: var(--background-color);
+            color: var(--text-color);
         }
 
         /* Header Styles */
         .epic-header {
-            background: var(--epic-header);
-            padding: 4px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #2d7abf;
-        }
-
-        .header-left,
-        .header-right {
-            display: flex;
-            gap: 4px;
-        }
-
-        .header-button {
-            padding: 2px 8px;
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            font-size: 11px;
-            border-radius: 2px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .header-button i {
-            font-size: 12px;
-        }
-
-        /* Navigation Tabs */
-        .nav-tabs {
-            background: var(--epic-light-blue);
-            padding: 4px 4px 0 4px;
-            border-bottom: 1px solid var(--epic-border);
         }
 
         .primary-tabs {
+            background-color: white;
+            padding: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
             display: flex;
-            gap: 2px;
-            margin-bottom: -1px;
+            gap: 1rem;
         }
 
-        .tab-button {
-            padding: 4px 12px;
-            background: #f0f0f0;
-            border: 1px solid var(--epic-border);
-            border-bottom: none;
-            border-radius: 4px 4px 0 0;
+        .primary-tabs div {
+            padding: 0.5rem 1rem;
             cursor: pointer;
-            font-size: 11px;
+            border-radius: 0.25rem;
         }
 
-        .tab-button.active {
-            background: white;
-            position: relative;
+        .primary-tabs div:hover {
+            background-color: var(--background-color);
         }
 
-        .tab-button.active::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: white;
-        }
-
-        /* Secondary Navigation */
-        .sub-nav {
-            background: white;
-            padding: 4px;
-            border-bottom: 1px solid var(--epic-border);
-            display: flex;
-            gap: 1px;
-        }
-
-        .sub-nav-item {
-            padding: 2px 8px;
-            color: var(--epic-link);
-            text-decoration: none;
-            border-right: 1px solid var(--epic-border);
-        }
-
-        /* Main Layout */
+        /* Layout Styles */
         .main-container {
-            display: flex;
-            height: calc(100vh - 110px);
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 1rem;
+            padding: 1rem;
         }
 
-        /* Sidebar */
+        /* Sidebar Styles */
         .sidebar {
-            width: 200px;
             background: white;
-            border-right: 1px solid var(--epic-border);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
-        .patient-info {
-            padding: 8px;
-            border-bottom: 1px solid var(--epic-border);
+        .profile-image-container {
+            text-align: center;
+            margin-bottom: 1rem;
         }
 
-        .profile-image {
-            width: 80px;
-            height: 80px;
+        .profile-image-container img {
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
-            margin-bottom: 8px;
+            object-fit: cover;
         }
 
         .status-indicator {
             display: inline-block;
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
+            background-color: #22c55e;
             border-radius: 50%;
-            background: #4CAF50;
-            margin-right: 4px;
+            margin-right: 0.5rem;
         }
 
-        /* Content Area */
-        .content-area {
-            flex: 1;
-            padding: 8px;
-            overflow: auto;
-        }
-
-        /* Work List Section */
+        /* Work List Styles */
         .work-list {
             background: white;
-            border: 1px solid var(--epic-border);
-            margin-bottom: 8px;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
-        .section-header {
-            background: #e8f5e9;
-            padding: 4px 8px;
-            font-weight: 500;
-            border-bottom: 1px solid var(--epic-border);
+        .work-list-item {
             display: flex;
-            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .section-header i {
-            margin-right: 4px;
-            color: #43a047;
+        .work-list-item:last-child {
+            border-bottom: none;
         }
 
-        .task-list {
-            padding: 0;
-            margin: 0;
-            list-style: none;
+        .priority {
+            color: #dc2626;
+            font-size: 0.875rem;
         }
 
-        .task-item {
-            padding: 4px 8px;
-            border-bottom: 1px solid #eee;
+        /* Section Headers */
+        .section-header {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        /* Tools Grid */
+        .tools-grid {
             display: grid;
-            grid-template-columns: 100px 1fr 100px;
-            align-items: center;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .tool-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .tool-card h4 {
+            color: var(--primary-color);
+            margin: 0 0 0.5rem 0;
+        }
+
+        .tool-button {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 0.25rem;
+            text-decoration: none;
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .tool-button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .tool-status {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            background-color: #e2e8f0;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
         }
 
         /* Vitals Section */
         .vitals-section {
-            display: flex;
-            gap: 8px;
-        }
-
-        .vitals-chart {
-            flex: 1;
             background: white;
-            border: 1px solid var(--epic-border);
-        }
-
-        .treatment-team {
-            width: 300px;
-            background: white;
-            border: 1px solid var(--epic-border);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
         }
 
         .vitals-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 8px;
-            padding: 8px;
+            gap: 1rem;
         }
 
         .vital-metric {
-            padding: 8px;
-            background: #f8f9fa;
-            border: 1px solid #eee;
-            border-radius: 4px;
+            text-align: center;
+            padding: 1rem;
+            background-color: var(--background-color);
+            border-radius: 0.25rem;
         }
 
-        .vital-label {
-            display: block;
-            color: #666;
-            margin-bottom: 4px;
+        /* Experience Section */
+        .experience-list {
+            margin-top: 1rem;
         }
 
-        .vital-value {
-            font-size: 16px;
-            font-weight: 500;
-            color: var(--epic-link);
-        }
-
-        .team-member {
-            padding: 8px;
-            border-bottom: 1px solid #eee;
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 8px;
-        }
-
-        /* Hl7 Tool Section */
-        .hl7-tool-section {
+        .experience-item {
             background: white;
-            border: 1px solid var(--epic-border);
-            margin-bottom: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0.5rem;
+            border-left: 4px solid var(--primary-color);
+            transition: transform 0.2s;
         }
 
-        .hl7-tool-section .section-header {
-            background: #e8f5e9;
-            padding: 4px 8px;
-            font-weight: 500;
-            border-bottom: 1px solid var(--epic-border);
-            display: flex;
-            align-items: center;
+        .experience-item:hover {
+            transform: translateX(5px);
         }
 
-        .hl7-tool-section .section-header i {
-            margin-right: 4px;
-            color: #43a047;
-        }
-
-        .tool-access {
-            padding: 8px;
+        .experience-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            margin-bottom: 0.5rem;
         }
 
-        .tool-button {
-            margin-top: 8px;
-            display: flex;
-            justify-content: flex-end;
+        .experience-company {
+            color: var(--secondary-color);
+            font-weight: 500;
         }
 
-        .tool-link {
-            background-color: #2980b9;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 5px;
-            text-decoration: none;
+        .experience-date {
+            color: #666;
+            font-size: 0.875rem;
+        }
+
+        .experience-summary {
+            margin: 0.5rem 0;
+            color: #4b5563;
+            font-style: italic;
+        }
+
+        .experience-details h5 {
+            color: var(--primary-color);
+            margin: 1rem 0 0.5rem 0;
             font-size: 0.9rem;
+            text-transform: uppercase;
         }
 
-        .tool-link:hover {
-            background-color: #3498db;
+        .experience-details ul {
+            margin-top: 0.5rem;
+        }
+
+        .experience-details li {
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        /* Tech Tags */
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .tech-tags span {
+            background-color: #e2e8f0;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.8rem;
+            color: var(--secondary-color);
+        }
+
+        /* Education Section */
+        .education-section {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .education-item {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .education-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Certifications Section */
+        .certifications-section {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Tooltip Container */
+    .cert-tooltip {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+    }
+
+    /* Tooltip Content */
+    .cert-tooltip .tooltip-content {
+        visibility: hidden;
+        background-color: #f8fafc;
+        color: #1f2937;
+        text-align: left;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+        /* Position the tooltip */
+        position: absolute;
+        z-index: 1;
+        width: 300px;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 125%;
+
+        /* Fade in animation */
+        opacity: 0;
+        transition: opacity 0.2s, visibility 0.2s;
+    }
+
+    /* Tooltip Arrow */
+    .cert-tooltip .tooltip-content::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -10px;
+        border-width: 10px;
+        border-style: solid;
+        border-color: #e2e8f0 transparent transparent transparent;
+    }
+
+    /* Show tooltip on hover */
+    .cert-tooltip:hover .tooltip-content {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    /* Skills List in Tooltip */
+    .cert-skills {
+        margin-top: 0.5rem;
+        padding-left: 1.25rem;
+        font-size: 0.875rem;
+    }
+
+    .cert-skills li {
+        margin-bottom: 0.25rem;
+    }
+
+    /* Certification Title */
+    .cert-title {
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+    }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .experience-header {
+                flex-direction: column;
+            }
+
+            .vitals-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
-
 <body>
-    <!-- Header -->
     <header class="epic-header">
-        <div class="header-left">
-            <button class="header-button">
-                <i class="fas fa-bars"></i>
-                CMR
-            </button>
-            <button class="header-button">
-                <i class="fas fa-search"></i>
-                System Lookup
-            </button>
-            <button class="header-button">
-                <i class="fas fa-clipboard-list"></i>
-                Work Lists
-            </button>
-        </div>
-        <div class="header-right">
-            <button class="header-button" onclick="window.print()">
-                <i class="fas fa-print"></i>
-                Print
-            </button>
-            <button class="header-button">
-                <i class="fas fa-sign-out-alt"></i>
-                Log Out
-            </button>
-        </div>
+        <div>EMR Portfolio System</div>
+        <div id="current-time"></div>
     </header>
 
-    <!-- Main Navigation -->
-    <nav class="nav-tabs">
-        <div class="primary-tabs">
-            <button class="tab-button">Summary</button>
-            <button class="tab-button active">System Review</button>
-            <button class="tab-button">Results</button>
-            <button class="tab-button">Work List</button>
-            <button class="tab-button">Infrastructure</button>
-            <button class="tab-button">Monitoring</button>
-            <button class="tab-button">Reports</button>
-        </div>
+    <nav class="primary-tabs">
+        <div>Summary</div>
+        <div>Experience</div>
+        <div>Skills</div>
+        <div>Tools</div>
     </nav>
 
-    <!-- Secondary Navigation -->
-    <div class="sub-nav">
-        <a href="#" class="sub-nav-item">Overview</a>
-        <a href="#" class="sub-nav-item">System Status</a>
-        <a href="#" class="sub-nav-item">Infrastructure</a>
-        <a href="#" class="sub-nav-item">Active Orders</a>
-        <a href="#" class="sub-nav-item">Assessments</a>
-    </div>
-
-    <!-- Main Content -->
-    <div class="main-container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="patient-info">
-                <img src="assets/images/me.jpeg" alt="Brian Creelman" class="profile-image">
-                <h3 style="margin: 4px 0;">Brian Creelman</h3>
-                <p style="margin: 4px 0;">Senior DevOps Engineer</p>
-                <p style="margin: 4px 0;">
-                    <span class="status-indicator"></span>
-                    Active Status
-                </p>
+    <main class="main-container">
+        <aside class="sidebar">
+            <div class="profile-image-container">
+                <img src="assets/images/me.jpeg" alt="Brian Creelman" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover;">
             </div>
-        </div>
+            </div>
+            <h2 style="text-align: center;">Brian Creelman</h2>
+            <p style="text-align: center;">Lead Cloud Support Engineer</p>
+            <div style="margin-top: 1rem;">
+                <p><span class="status-indicator"></span>Active Status</p>
+                <p>MRN: DEV-2024-001</p>
+                <p>Department: DevSecOps</p>
+                <p>Contact: creelmbd@gmail.com</p>
+                <p>Phone: 513-240-9082</p>
+            </div>
 
-        <!-- Content Area -->
-        <div class="content-area">
-            <!-- Work List Section -->
-            <div class="work-list">
-                <div class="section-header">
-                    <i class="fas fa-tasks"></i>
-                    Work List Tasks
-                </div>
-                <ul class="task-list">
-                    <li class="task-item">
-                        <span>08:00</span>
-                        <span>Infrastructure Health Check</span>
-                        <span style="color: #d32f2f;">Priority</span>
-                    </li>
-                    <li class="task-item">
-                        <span>09:30</span>
-                        <span>Review System Metrics</span>
-                        <span>Routine</span>
-                    </li>
-                    <li class="task-item">
-                        <span>11:00</span>
-                        <span>Deploy Updates</span>
-                        <span>Scheduled</span>
-                    </li>
+            <div style="margin-top: 1rem;">
+                <h3 class="section-header">Memberships</h3>
+                <ul style="list-style-type: none; padding-left: 0;">
+                    <li>• OWASP Cincinnati</li>
+                    <li>• CyberFastTrack 25,000 by 2025</li>
                 </ul>
             </div>
+        </aside>
 
-            <!-- Vitals Section -->
-            <div class="vitals-section">
-                <div class="vitals-chart">
-                    <div class="section-header">
-                        <i class="fas fa-chart-line"></i>
-                        System Vitals
+        <section class="content">
+            <div class="work-list">
+                <h3 class="section-header">Professional Experience Record</h3>
+                <div class="experience-list">
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <h4>Lead Cloud Support Engineer</h4>
+                            <span class="experience-date">November 2020 - Present</span>
+                        </div>
+                        <div class="experience-company">Xealth</div>
+                        <div class="experience-summary">
+                            <p>Lead engineer responsible for cloud infrastructure support, integration and application support as well as operations.</p>
+                        </div>
+                        <div class="experience-details">
+                            <h5>Key Responsibilities:</h5>
+                            <ul>
+                                <li>Subject Matter Expert for Incident Response, SRE, Support, and DevOps</li>
+                                <li>Designed and implemented comprehensive ITIL-based Incident Response procedures</li>
+                                <li>Led restructuring of PagerDuty on-call systems and alarm protocols for Sev1 and after-hour support</li>
+                                <li>Performed critical security event analysis and escalation in SIEM</li>
+                            </ul>
+                            <h5>Technical Environment:</h5>
+                            <div class="tech-tags">
+                                <span>AWS</span>
+                                <span>ITIL</span>
+                                <span>PagerDuty</span>
+                                <span>SIEM</span>
+                                <span>Cloud Infrastructure</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="vitals-grid">
-                        <div class="vital-metric">
-                            <span class="vital-label">CPU Usage</span>
-                            <span class="vital-value">42%</span>
-                        </div>
-                        <div class="vital-metric">
-                            <span class="vital-label">Memory</span>
-                            <span class="vital-value">6.8 GB</span>
-                        </div>
-                        <div class="vital-metric">
-                            <span class="vital-label">Response Time</span>
-                            <span class="vital-value">42ms</span>
-                        </div>
-                        <div class="vital-metric">
-                            <span class="vital-label">Uptime</span>
-                            <span class="vital-value">99.99%</span>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="treatment-team">
-                    <div class="section-header">
-                        <i class="fas fa-users"></i>
-                        Team Members
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <h4>Technical Solutions Analyst</h4>
+                            <span class="experience-date">September 2018 - October 2020</span>
+                        </div>
+                        <div class="experience-company">Halo Health</div>
+                        <div class="experience-summary">
+                            <p>Technical lead for customer solutions and enterprise implementations.</p>
+                        </div>
+                        <div class="experience-details">
+                            <h5>Key Responsibilities:</h5>
+                            <ul>
+                                <li>Conducted and led technical assessments during sales process for potential customers</li>
+                                <li>Served as subject matter expert in clinical technology use and integrations</li>
+                                <li>Collaborated with sales operations to develop comprehensive technical implementation plans</li>
+                                <li>Key team member in large enterprise health system implementations</li>
+                                <li>Provided escalation support as Tier 3 specialist for customer service teams</li>
+                            </ul>
+                            <h5>Technical Environment:</h5>
+                            <div class="tech-tags">
+                                <span>Healthcare Systems</span>
+                                <span>Clinical Integrations</span>
+                                <span>Enterprise Solutions</span>
+                                <span>Technical Implementation</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="team-member">
-                        <div>
-                            <strong>DevOps Lead</strong><br>
-                            <small>Primary Contact</small>
+
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <h4>Sr. Clinical Integration Analyst</h4>
+                            <span class="experience-date">January 2015 - September 2018</span>
                         </div>
-                        <div>
-                            <i class="fas fa-phone"></i>
+                        <div class="experience-company">Cincinnati Children's Hospital</div>
+                        <div class="experience-summary">
+                            <p>Senior analyst focusing on clinical systems integration and automation.</p>
+                        </div>
+                        <div class="experience-details">
+                            <h5>Key Responsibilities:</h5>
+                            <ul>
+                                <li>Coordinated with IS teams and vendors to resolve complex hardware, network, software, and communication issues</li>
+                                <li>Spearheaded implementation projects to enhance workflow between clinicians and vendors</li>
+                                <li>Developed and implemented PowerShell and batch scripting solutions for task automation</li>
+                                <li>Maintained and supported various clinical systems including routine system checks</li>
+                            </ul>
+                            <h5>Technical Environment:</h5>
+                            <div class="tech-tags">
+                                <span>PowerShell</span>
+                                <span>Batch Scripting</span>
+                                <span>Clinical Systems</span>
+                                <span>Healthcare IT</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="team-member">
-                        <div>
-                            <strong>SRE Engineer</strong><br>
-                            <small>On Call</small>
+
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <h4>Additional Experience</h4>
                         </div>
-                        <div>
-                            <i class="fas fa-phone"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="hl7-tool-section">
-                    <div class="section-header">
-                        <i class="fas fa-file-medical"></i>
-                        HL7 Message Reader
-                    </div>
-                    <div class="team-member">
-                        <div>
-                            <strong>HL7 Parser Tool</strong><br>
-                            <small>Convert HL7 messages into human-readable format</small>
-                        </div>
-                        <div class="tool-button">
-                            <a href="hl7reader.html" class="tool-link">
-                                <i class="fas fa-external-link-alt"></i> Open Tool
-                            </a>
+                        <div class="experience-details">
+                            <ul>
+                                <li><strong>Service Desk Analyst</strong> - Cincinnati Children's Hospital (2014-2015)</li>
+                                <li><strong>Level 2/3 Service Desk Analyst</strong> - Atos (2012-2014)</li>
+                                <li><strong>Technical Support</strong> - Verizon (2011-2012)</li>
+                                <li><strong>Network Tech (Contract)</strong> - Uptime Unlimited, LLC (2012)</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</body>
 
+            <div class="education-section">
+                <h3 class="section-header">Education History</h3>
+                <div class="education-item">
+                    <h4>SANS</h4>
+                    <p>CyberFastTrack Foundations (2021 - 2022)</p>
+                </div>
+                <div class="education-item">
+                    <h4>Western Governors University</h4>
+                    <p>Cybersecurity and Information Assurance (2020 - 2022)</p>
+                </div>
+                <div class="education-item">
+                    <h4>University of Cincinnati</h4>
+                    <p>Cybersecurity (2016 - 2017)</p>
+                </div>
+            </div>
+
+            <div class="certifications-section">
+                <h3 class="section-header">System Certifications</h3>
+                <div class="vitals-grid">
+                    <div class="vitals-grid">
+                        <div class="vital-metric">
+                            <div class="cert-tooltip">
+                                <div>AWS Certified Cloud Practitioner</div>
+                                <div style="font-size: 0.875rem; color: #666;">Since 2020</div>
+                                <div class="tooltip-content">
+                                    <div class="cert-title">AWS Cloud Practitioner</div>
+                                    <p>Validates overall understanding of the AWS Cloud, focusing on:</p>
+                                    <ul class="cert-skills">
+                                        <li>AWS Cloud concepts, architecture, and services</li>
+                                        <li>AWS security and compliance</li>
+                                        <li>Cloud deployment and operation basics</li>
+                                        <li>Core AWS services and use cases</li>
+                                        <li>Billing, pricing, and AWS support structures</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="vital-metric">
+                            <div class="cert-tooltip">
+                                <div>CompTIA A+</div>
+                                <div style="font-size: 0.875rem; color: #666;">Since 2021</div>
+                                <div class="tooltip-content">
+                                    <div class="cert-title">CompTIA A+ Certification</div>
+                                    <p>Industry standard for establishing foundational IT knowledge, covering:</p>
+                                    <ul class="cert-skills">
+                                        <li>Hardware and network troubleshooting</li>
+                                        <li>Operating system configuration and maintenance</li>
+                                        <li>Security fundamentals and best practices</li>
+                                        <li>Mobile device and IoT management</li>
+                                        <li>Cloud computing and virtualization</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="vital-metric">
+                            <div class="cert-tooltip">
+                                <div>ITIL Foundations V4</div>
+                                <div style="font-size: 0.875rem; color: #666;">Since 2020</div>
+                                <div class="tooltip-content">
+                                    <div class="cert-title">ITIL Foundations V4</div>
+                                    <p>Demonstrates expertise in IT service management, including:</p>
+                                    <ul class="cert-skills">
+                                        <li>Service value system and chain implementation</li>
+                                        <li>IT service management principles and practices</li>
+                                        <li>Incident and problem management</li>
+                                        <li>Change control and service desk operations</li>
+                                        <li>Continuous improvement methodologies</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+            <div class="work-list">
+                <h3 class="section-header">Available Tools</h3>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <h4>HL7 Message Reader</h4>
+                        <p>Convert HL7 messages into human-readable format</p>
+                        <span class="tool-status">
+                            <div style="color: green;">Active</div></span>
+                        <br>
+                        <a href="hl7reader.html" class="tool-button">Launch Tool</a>
+                    </div>
+                    <div class="tool-card">
+                        <h4>FHIR Generator</h4>
+                        <p>A developer-friendly tool that allows users to input minimal information and auto-generates complex FHIR payloads</p>
+                        <span class="tool-status">
+                            <div style="color: green;">Active</div></span>
+                        <br>
+                        <a href="FHIRGenerator.html" class="tool-button">Launch Tool</a>
+                    </div>
+                    <div class="tool-card">
+                        <h4>HL7 PHI Masker</h4>
+                        <p>Tool to mask PHI within HL7 messages to share formatting</p>
+                        <span class="tool-status">In Development</span>
+                        <br>
+                        <a href="#" class="tool-button">Coming Soon</a>
+                    </div>
+                    <div class="tool-card">
+                        <h4>System Monitor</h4>
+                        <p>Real-time infrastructure monitoring dashboard</p>
+                        <span class="tool-status">In Development</span>
+                        <br>
+                        <a href="#" class="tool-button">Coming Soon</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function updateTime() {
+            const timeElement = document.getElementById('current-time');
+            timeElement.textContent = new Date().toLocaleTimeString();
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+</body>
 </html>

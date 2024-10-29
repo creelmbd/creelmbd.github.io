@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FHIR Test Payload Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>FHIR Test Payload Generator</h1>
+        <form id="fhirForm">
+            <label for="patientName">Patient Name:</label>
+            <input type="text" id="patientName" name="patientName" required>
+
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" required>
+
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+
+            <label for="resourceType">FHIR Resource Type:</label>
+            <select id="resourceType" name="resourceType">
+                <option value="Patient">Patient</option>
+                <option value="Observation">Observation</option>
+                <option value="MedicationRequest">Medication Request</option>
+            </select>
+
+            <button type="submit">Generate Payload</button>
+        </form>
+        <h2>Generated FHIR Payload:</h2>
+        <pre id="payloadOutput"></pre>
+    </div>
+
+    <script>
+        document.getElementById('fhirForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const patientName = document.getElementById('patientName').value;
+            const dob = document.getElementById('dob').value;
+            const gender = document.getElementById('gender').value;
+            const resourceType = document.getElementById('resourceType').value;
+
+            let payload = {};
+
+            if (resourceType === 'Patient') {
+                payload = {
+                    resourceType: "Patient",
+                    name: [{ use: "official", text: patientName }],
+                    gender: gender,
+                    birthDate: dob
+                };
+            } else if (resourceType === 'Observation') {
+                payload = {
+                    resourceType: "Observation",
+                    status: "final",
+                    code: { text: "Test Observation" },
+                    subject: { reference: `Patient/${patientName}` },
+                    effectiveDateTime: new Date().toISOString()
+                };
+            } else if (resourceType === 'MedicationRequest') {
+                payload = {
+                    resourceType: "MedicationRequest",
+                    status: "active",
+                    intent: "order",
+                    medicationCodeableConcept: { text: "Test Medication" },
+                    subject: { reference: `Patient/${patientName}` },
+                    authoredOn: new Date().toISOString()
+                };
+            }
+
+            document.getElementById('payloadOutput').textContent = JSON.stringify(payload, null, 2);
+        });
+    </script>
+</body>
+</html>

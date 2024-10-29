@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>HL7 Message Reader</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
 </head>
+
 <body class="bg-gray-100 p-8">
     <div class="max-w-4xl mx-auto">
         <h1 class="text-3xl font-bold mb-6 text-center">HL7 Message Reader</h1>
 
         <div class="mb-6">
-            <textarea
-                id="input"
-                class="w-full h-48 p-4 border rounded-lg shadow-sm mb-4"
-                placeholder="MSH|^~\&|SENDING_APPLICATION|SENDING_FACILITY|RECEIVING_APPLICATION|RECEIVING_FACILITY|20240101120000||ADT^A01|MSG00001|P|2.3
+            <textarea id="input" class="w-full h-48 p-4 border rounded-lg shadow-sm mb-4" placeholder="MSH|^~\&|SENDING_APPLICATION|SENDING_FACILITY|RECEIVING_APPLICATION|RECEIVING_FACILITY|20240101120000||ADT^A01|MSG00001|P|2.3
 EVN|A01|20240101120000||||20240101120000
 PID|||12345^^^MRN||DOE^JOHN^^^^||19700101|M|||123 MAIN ST^^ANYTOWN^ST^12345
 NK1|1|DOE^JANE^^^^|SPO||(555)555-5555
@@ -22,19 +21,15 @@ DG1|1|ICD10|A69.20^Lyme Disease^I10|Lyme Disease||A
 AL1|1|DA|1^PENICILLIN^ALLERGIES||SEVERE|HIVES"></textarea>
 
             <div class="flex gap-4 mb-4 flex-wrap">
-                <button
-                    onclick="convertMessage()"
+                <button onclick="convertMessage()"
                     class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg">
                     Convert to Human-Readable
                 </button>
-                <button
-                    onclick="loadTestData()"
+                <button onclick="loadTestData()"
                     class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg">
                     Test with Example
                 </button>
-                <button
-                    onclick="startOver()"
-                    class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg">
+                <button onclick="startOver()" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg">
                     Start Over
                 </button>
             </div>
@@ -43,12 +38,13 @@ AL1|1|DA|1^PENICILLIN^ALLERGIES||SEVERE|HIVES"></textarea>
         <div class="bg-white p-6 rounded-lg shadow-sm">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-semibold">Human-Readable Output:</h2>
-                <button
-                    onclick="copyToClipboard()"
+                <button onclick="copyToClipboard()"
                     class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
                     id="copyButton">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3">
+                        </path>
                     </svg>
                     Copy to Clipboard
                 </button>
@@ -113,7 +109,7 @@ AL1|1|DA|1^PENICILLIN^ALLERGIES||SEVERE|HIVES"></textarea>
                 const fields = segment.split('|');
                 const segmentType = fields[0];
 
-                switch(segmentType) {
+                switch (segmentType) {
                     case 'MSH':
                         output += 'Message Header:\n';
                         output += `  Sending Application: ${fields[2] || 'N/A'}\n`;
@@ -145,7 +141,8 @@ AL1|1|DA|1^PENICILLIN^ALLERGIES||SEVERE|HIVES"></textarea>
                         if (fields[5]) {
                             output += `  Patient Name: ${formatName(fields[5])}\n`;
                         }
-                        output += `  Date of Birth: ${fields[7] ? formatHL7DateTime(fields[7]).split(' ')[0] : 'N/A'}\n`;
+                        output +=
+                            `  Date of Birth: ${fields[7] ? formatHL7DateTime(fields[7]).split(' ')[0] : 'N/A'}\n`;
                         output += `  Gender: ${fields[8] || 'N/A'}\n`;
                         if (fields[11]) {
                             const addr = parseCompositeField(fields[11]);
@@ -188,6 +185,12 @@ AL1|1|DA|1^PENICILLIN^ALLERGIES||SEVERE|HIVES"></textarea>
                         }
                         break;
 
+                    case 'PV2':
+                        output += '\nAdditional Visit Information:\n';
+                        output += `  Admission Type: ${fields[2] || 'N/A'}\n`;
+                        output += `  Referral Source: ${fields[8] || 'N/A'}\n`;
+                        break;
+
                     case 'DG1':
                         output += '\nDiagnosis Information:\n';
                         output += `  Set ID: ${fields[1] || 'N/A'}\n`;
@@ -214,6 +217,23 @@ AL1|1|DA|1^PENICILLIN^ALLERGIES||SEVERE|HIVES"></textarea>
                         output += `  Reaction: ${fields[6] || 'N/A'}\n`;
                         break;
 
+                    case 'PR1':
+                        output += '\nProcedure Information:\n';
+                        output += `  Set ID: ${fields[1] || 'N/A'}\n`;
+                        output += `  Procedure Code: ${fields[3] || 'N/A'}\n`;
+                        output += `  Procedure Description: ${fields[4] || 'N/A'}\n`;
+                        output += `  Procedure Date/Time: ${formatHL7DateTime(fields[5])}\n`;
+                        break;
+
+                    case 'OBR':
+                        output += '\nObservation Request:\n';
+                        output += `  Set ID: ${fields[1] || 'N/A'}\n`;
+                        output += `  Placer Order #: ${fields[2] || 'N/A'}\n`;
+                        output += `  Filler Order #: ${fields[3] || 'N/A'}\n`;
+                        output += `  Universal Service ID: ${fields[4] || 'N/A'}\n`;
+                        output += `  Observation Date/Time: ${formatHL7DateTime(fields[7])}\n`;
+                        break;
+
                     case 'OBX':
                         output += '\nObservation Result:\n';
                         output += `  Set ID: ${fields[1] || 'N/A'}\n`;
@@ -235,6 +255,64 @@ AL1|1|DA|1^PENICILLIN^ALLERGIES||SEVERE|HIVES"></textarea>
                         output += `  Placer Order #: ${fields[2] || 'N/A'}\n`;
                         output += `  Filler Order #: ${fields[3] || 'N/A'}\n`;
                         output += `  Order Status: ${fields[5] || 'N/A'}\n`;
+                        break;
+
+                    case 'RXA':
+                        output += '\nPharmacy/Treatment Administration:\n';
+                        output += `  Administration Date/Time: ${formatHL7DateTime(fields[3])}\n`;
+                        output += `  Administered Code: ${fields[5] || 'N/A'}\n`;
+                        output += `  Administered Amount: ${fields[6] || 'N/A'}\n`;
+                        output += `  Administration Route: ${fields[7] || 'N/A'}\n`;
+                        break;
+
+                    case 'RXE':
+                        output += '\nPharmacy Encoded Order:\n';
+                        output += `  Quantity/Timing: ${fields[1] || 'N/A'}\n`;
+                        output += `  Give Code: ${fields[2] || 'N/A'}\n`;
+                        output += `  Give Amount: ${fields[4] || 'N/A'}\n`;
+                        output += `  Give Units: ${fields[5] || 'N/A'}\n`;
+                        output += `  Administration Route: ${fields[6] || 'N/A'}\n`;
+                        break;
+
+                    case 'IN1':
+                        output += '\nInsurance Information:\n';
+                        output += `  Set ID: ${fields[1] || 'N/A'}\n`;
+                        output += `  Insurance Plan ID: ${fields[2] || 'N/A'}\n`;
+                        output += `  Insurance Company Name: ${fields[3] || 'N/A'}\n`;
+                        output += `  Insurance Policy Number: ${fields[36] || 'N/A'}\n`;
+                        break;
+
+                    case 'IN2':
+                        output += '\nAdditional Insurance Information:\n';
+                        output += `  Set ID: ${fields[1] || 'N/A'}\n`;
+                        output += `  Employer: ${fields[2] || 'N/A'}\n`;
+                        output += `  Insured’s Employment Status: ${fields[16] || 'N/A'}\n`;
+                        break;
+
+                    case 'GT1':
+                        output += '\nGuarantor Information:\n';
+                        output += `  Set ID: ${fields[1] || 'N/A'}\n`;
+                        output += `  Guarantor Name: ${formatName(fields[3])}\n`;
+                        output +=
+                            `  Guarantor Address: ${parseCompositeField(fields[5]).filter(Boolean).join(', ') || 'N/A'}\n`;
+                        output += `  Guarantor Phone: ${parseCompositeField(fields[8])[0] || 'N/A'}\n`;
+                        break;
+
+                    case 'ACC':
+                        output += '\nAccident Information:\n';
+                        output += `  Accident Date/Time: ${formatHL7DateTime(fields[1])}\n`;
+                        output += `  Accident Code: ${fields[2] || 'N/A'}\n`;
+                        break;
+
+                    case 'FT1':
+                        output += '\nFinancial Transaction Information:\n';
+                        output += `  Transaction Date: ${formatHL7DateTime(fields[4])}\n`;
+                        output += `  Transaction Amount: ${fields[10] || 'N/A'}\n`;
+                        break;
+
+                    case 'NTE':
+                        output += '\nNotes and Comments:\n';
+                        output += `  Comment: ${fields[3] || 'N/A'}\n`;
                         break;
 
                     default:
@@ -299,4 +377,5 @@ AL1|1|DA|1^PENICILLIN^ALLERGIES||SEVERE|HIVES"></textarea>
         }
     </script>
 </body>
+
 </html>
